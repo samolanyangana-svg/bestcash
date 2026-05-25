@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> 
+      <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+        <style>
+          body{
+        background: #1a1a2e;
+            color: white;
+            font-family: Arial, sanss-serif;
+            text-align: center;
+            padding: 50px;
+          }
+          #multiplier{
+            font-size: 80px;
+            font-weight: bold;
+            margin: 50px 0;
+          }
+          #status{
+            font-size: 24px;
+            color:#00ff88;
+          }
+          </style>
+  </head>
+  <body>
+    <h1>JetX</h1>
+    <div id="multiplier">1.00x</div>
+    <div id="status">Waiting for next round...</div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      const multiplier El=
+        document.getElementByld('multiplier');
+      const statusEl=
+        document.getElementByld('status');
+      socket.on('start',()=>{
+        statusEl.textContent = 'Flying...';
+        statusEl.style.color='#00ff88';
+      });
+      socket.on('update',(mult)=>{
+        multiplierEl.textContent=mult+'x';
+      });
+      socket.on('crash',(crashPoint)=>{
+        statusEl.texContent='Crashed at'+
+          crashPoint+'x';
+        statusEl.style.color='#ff4444';
+        multiplierEl.textContent = crashPoint+'x';
+      });
+    </script> 
+  </body>
+</html>
